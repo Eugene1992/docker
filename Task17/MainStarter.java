@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class MainStarter {
-	private static final String url = "jdbc:mysql://localhost:3306/discovery?useSSL=false";
-	private static final String user = "root";
-	private static final String password = "root";
+	private static final String url = "jdbc:mysql://mysql:3306/discovery?useSSL=false";
+	private static final String user = "discovery";
+	private static final String password = "discovery";
 
 	public static void main(String args[]) {
 		String query = "select name from greeting";

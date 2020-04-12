@@ -3,9 +3,26 @@ version: '3.7'
 services:
   mysql:
     build:
-      context: .
-      dockerfile: mysql/mysql.dockerfile 
+      context: mysql
+      dockerfile: mysql.dockerfile 
+    environment:
+      - MYSQL_DATABASE=discovery
+      - MYSQL_USER=discovery
+      - MYSQL_PASSWORD=discovery 
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - mysql-network
   jvm:
     build:
-      context: .
-      dockerfile: jvm/jvm.dockerfile 
+      context: jvm
+      dockerfile: jvm.dockerfile 
+    depends_on:
+      - mysql
+    networks:
+      - mysql-network
+    command: java -classpath .:/sources/mysql-connector-java-8.0.19.jar MainStarter
+    stdin_open: true
+    tty: true
+networks:
+  mysql-network:
+    driver: bridge
